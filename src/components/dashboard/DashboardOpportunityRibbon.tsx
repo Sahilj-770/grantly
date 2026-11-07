@@ -5,14 +5,10 @@ import { Scholarship, EligibilityResult } from '../../types/scholarship'
 import {
   Sparkles,
   ArrowRight,
-  ShieldCheck,
   Building2,
   Calendar,
-  Coins,
   ChevronLeft,
-  ChevronRight,
-  CheckCircle2,
-  Compass
+  ChevronRight
 } from 'lucide-react'
 
 interface QualifiedMatch {
@@ -143,7 +139,7 @@ export function DashboardOpportunityRibbon() {
     fillLight.position.set(-6, -4, 4)
     scene.add(fillLight)
 
-    // 6. Interaction State
+    // 6. Interaction State & Visibility Optimization
     let mouseX = 0
     let mouseY = 0
     let targetRotationY = 0
@@ -152,6 +148,24 @@ export function DashboardOpportunityRibbon() {
     let currentRotationX = 0
     let animId: number
     let clock = new THREE.Clock()
+
+    let isVisible = true
+    let isTabActive = !document.hidden
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting
+        })
+      },
+      { threshold: 0.05 }
+    )
+    observer.observe(container)
+
+    const onVisibilityChange = () => {
+      isTabActive = !document.hidden
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     const onPointerMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect()
@@ -162,9 +176,11 @@ export function DashboardOpportunityRibbon() {
     }
     container.addEventListener('mousemove', onPointerMove)
 
-    // 7. Animation Loop
+    // 7. Animation Loop with Power-Saving Offscreen Suspension
     const animate = () => {
       animId = requestAnimationFrame(animate)
+      if (!isVisible || !isTabActive) return
+
       const elapsed = clock.getElapsedTime()
 
       // Smooth camera / mesh orbit damping
@@ -198,6 +214,8 @@ export function DashboardOpportunityRibbon() {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', onResize)
       container.removeEventListener('mousemove', onPointerMove)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      observer.disconnect()
 
       tubeGeometry.dispose()
       tubeMaterial.dispose()

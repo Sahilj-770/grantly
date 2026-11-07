@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import { Scholarship, EligibilityResult } from '../types/scholarship'
 import { StudentProfile, DEFAULT_STUDENT_PROFILE } from '../types/student'
 import { Application, ApplicationStatus, DeadlineUrgency } from '../types/application'
@@ -133,9 +133,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     showToast('Student profile updated successfully.')
   }
 
-  const isSaved = (scholarshipId: string) => {
-    return profile.savedScholarshipIds.includes(scholarshipId)
-  }
+  const isSaved = useCallback(
+    (scholarshipId: string) => {
+      return profile.savedScholarshipIds.includes(scholarshipId)
+    },
+    [profile.savedScholarshipIds]
+  )
 
   const toggleSaveScholarship = (scholarshipId: string) => {
     setProfile(prev => {
@@ -340,15 +343,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     showToast('Document removed from Vault.')
   }
 
-  const getEligibilityFor = (scholarshipId: string): EligibilityResult | null => {
-    const sch = SCHOLARSHIPS_DATA.find(s => s.id === scholarshipId)
-    if (!sch) return null
-    return calculateEligibility(sch, profile, documents)
-  }
+  const getEligibilityFor = useCallback(
+    (scholarshipId: string): EligibilityResult | null => {
+      const sch = SCHOLARSHIPS_DATA.find((s) => s.id === scholarshipId)
+      if (!sch) return null
+      return calculateEligibility(sch, profile, documents)
+    },
+    [profile, documents]
+  )
 
-  const quickOpenModal = (scholarshipId: string) => {
+  const quickOpenModal = useCallback((scholarshipId: string) => {
     setSelectedScholarshipId(scholarshipId)
-  }
+  }, [])
 
   return (
     <StoreContext.Provider

@@ -180,6 +180,12 @@ export function CurvedTileHero() {
     let animId: number
     let prevTime = performance.now()
     let isVisible = true
+    let isTabActive = !document.hidden
+
+    const onVisibilityChange = () => {
+      isTabActive = !document.hidden
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -195,7 +201,7 @@ export function CurvedTileHero() {
       const dt = Math.min((now - prevTime) / 1000, 0.08)
       prevTime = now
 
-      if (!isVisible) {
+      if (!isVisible || !isTabActive) {
         animId = requestAnimationFrame(loop)
         return
       }
@@ -308,6 +314,7 @@ export function CurvedTileHero() {
     return () => {
       cancelAnimationFrame(animId)
       observer.disconnect()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
     }
   }, [isMobile, prefersReducedMotion])
 

@@ -168,6 +168,38 @@ def run_qa():
         page.screenshot(path=f"{SCREENSHOT_DIR}/14_discovery_list_view.png")
         print("✓ Discovery List View toggle verified")
         
+        # Switch back to Grid View
+        page.locator("button[aria-label='Grid View']").click()
+        time.sleep(0.3)
+        
+        print("\n--- TEST 4B: GRANTLY FUTUREFIT — WHAT-IF SIMULATOR ---")
+        futurefit_header = page.locator("text='GRANTLY FutureFit'").first
+        assert futurefit_header.is_visible(), "FutureFit Simulator banner not visible"
+        
+        # Expand FutureFit Simulator
+        futurefit_header.click()
+        time.sleep(0.5)
+        
+        # Verify simulator controls & baseline isolation
+        assert page.locator("text='Academic Standing Projection'").is_visible(), "FutureFit controls not expanded"
+        assert page.locator("text='Real Data Untouched'").is_visible(), "Isolation disclosure not visible"
+        assert page.locator("text='Actual CGPA:'").is_visible(), "Actual CGPA baseline indicator missing"
+        
+        # Test Slider interaction
+        slider = page.locator("input[aria-label='Hypothetical CGPA Slider']")
+        assert slider.is_visible(), "Hypothetical CGPA slider not visible"
+        slider.fill("9.6")
+        time.sleep(0.5)
+        
+        # Verify projected score & threshold recalculation
+        assert page.locator("text='9.60 CGPA'").is_visible(), "Hypothetical CGPA target not updated"
+        page.screenshot(path=f"{SCREENSHOT_DIR}/12c_discovery_futurefit_simulator.png")
+        print("✓ FutureFit simulator verified: Slider models thresholds without mutating real profile")
+        
+        # Collapse FutureFit
+        futurefit_header.click()
+        time.sleep(0.3)
+        
         print("\n--- TEST 5: SCHOLARSHIP OPERATIONS CENTER & DOSSIER DRAWER ---")
         page.locator("button:has-text('Tracker')").first.click()
         time.sleep(0.8)

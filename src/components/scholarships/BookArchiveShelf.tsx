@@ -22,8 +22,8 @@ export function BookArchiveShelf() {
     return idx >= 0 ? idx : null
   })
 
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const shelfRef = useRef<HTMLDivElement | null>(null)
+  const booksRowRef = useRef<HTMLDivElement | null>(null)
 
   // Sync active volume if store's selectedCategory changes externally
   useEffect(() => {
@@ -56,17 +56,19 @@ export function BookArchiveShelf() {
     setSelectedCategory(null)
   }
 
-  // Mouse move for subtle 3D tilt
+  // Direct DOM transform without high-frequency React state rerenders
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!shelfRef.current) return
+    if (!shelfRef.current || !booksRowRef.current) return
     const rect = shelfRef.current.getBoundingClientRect()
     const x = (e.clientX - rect.left) / rect.width - 0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5
-    setMousePos({ x, y })
+    booksRowRef.current.style.transform = `rotateY(${x * 4}deg) rotateX(${-y * 3}deg)`
   }
 
   const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 })
+    if (booksRowRef.current) {
+      booksRowRef.current.style.transform = 'rotateY(0deg) rotateX(0deg)'
+    }
   }
 
   // Keyboard navigation
@@ -141,10 +143,8 @@ export function BookArchiveShelf() {
       >
         {/* Book Container with 3D Tilt */}
         <div
+          ref={booksRowRef}
           className="flex items-end justify-center gap-2.5 transition-transform duration-300 ease-out"
-          style={{
-            transform: `rotateY(${mousePos.x * 4}deg) rotateX(${-mousePos.y * 3}deg)`
-          }}
         >
           {FUNDING_PATHWAYS.map((pathway, index) => {
             const isActive = activeVolumeIndex === index

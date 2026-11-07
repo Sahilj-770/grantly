@@ -51,6 +51,12 @@ GRANTLY is an independent, premium scholarship intelligence and academic funding
   5. `manual_verification_required` (specialized committee evaluation)
 - **Non-Guarantee Disclosure:** Explicitly states that eligibility calculation is an estimation based on published institutional guidelines and does not constitute a legal admission or award guarantee.
 
+### F. GRANTLY FutureFit — Academic Eligibility What-If Simulator (`FutureFitSimulator.tsx`)
+- **Purpose:** Allows students to explore how hypothetical academic standing improvements affect their qualification across the institutional scholarship directory.
+- **Implementation:** Interactive CGPA slider (5.00–10.00) modeling threshold shifts through the deterministic matching engine in an ephemeral, unmutated sandbox.
+- **Visual Comparison:** Displays `ACTUAL PROFILE` $\rightarrow$ `HYPOTHETICAL PROFILE`, showing status transitions, newly accessible grants, and remaining non-academic prerequisites (e.g. letters of recommendation, statement of purpose).
+- **Ethics Safeguards:** Never modifies the saved student profile; carries clear disclaimers that academic threshold satisfaction does not guarantee award selection.
+
 ---
 
 ## 2. Brand Identity & Design System
@@ -136,6 +142,7 @@ Automated screenshots generated during the Playwright evaluation are preserved i
 - `11_scholarship_detail_modal.png` — Itemized criteria breakdown & qualification modal
 - `12_discovery_book_archive_shelf.png` — 3D Book Archive Shelf in Discovery
 - `12b_discovery_book_shelf_selected.png` — Expanded volume cover filtering catalog
+- `12c_discovery_futurefit_simulator.png` — FutureFit academic what-if eligibility simulator
 - `15_application_operations_center.png` — Executive metrics bar & 6-stage Kanban board
 - `16_application_detail_drawer.png` — Slide-out Operations Dossier with milestones & checklists
 - `18_document_vault_honest_disclosure.png` — Document Vault with honest local sandbox disclosures

@@ -1,6 +1,13 @@
 import { Scholarship } from '../types/scholarship'
 
-export const SCHOLARSHIPS_DATA: Scholarship[] = [
+function calculateDaysRemainingFromDate(deadlineStr: string): number {
+  const target = new Date(deadlineStr).getTime()
+  const now = Date.now()
+  const diff = target - now
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)))
+}
+
+const RAW_SCHOLARSHIPS_DATA: Scholarship[] = [
   {
     id: 'sch-rhodes-2026',
     title: 'The Rhodes Scholarship at Oxford University',
@@ -604,3 +611,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     isOfficialVerified: true
   }
 ]
+
+export const SCHOLARSHIPS_DATA: Scholarship[] = RAW_SCHOLARSHIPS_DATA.map((sch) => ({
+  ...sch,
+  daysRemaining: calculateDaysRemainingFromDate(sch.deadline)
+}))
