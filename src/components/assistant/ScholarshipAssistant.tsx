@@ -70,63 +70,79 @@ export function ScholarshipAssistant() {
 
     // Simulate intelligent response grounded in actual store data
     setTimeout(() => {
-      const q = userQuery.toLowerCase()
-      let reply = ''
-      let action: ChatMessage['suggestedAction'] = undefined
+      try {
+        const q = userQuery.toLowerCase()
+        let reply = ''
+        let action: ChatMessage['suggestedAction'] = undefined
 
-      if (q.includes('match') || q.includes('eligible') || q.includes('best')) {
-        reply = `Based on your ${profile.cgpa.toFixed(2)} CGPA, ${profile.educationLevel} enrollment, and ${profile.course} discipline, you qualify for 3 flagship opportunities:\n\n1. **The Rhodes Scholarship at Oxford** (100% Fees + £19,092/yr stipend) — You exceed the 8.5 CGPA threshold.\n2. **Generation Google Scholarship (APAC)** ($2,500) — Aligns with your CS degree.\n3. **Prime Minister's Research Fellowship (PMRF)** (₹9.6L/yr) — If you plan direct Ph.D. research at an IIT.`
-        action = {
-          type: 'open_scholarship',
-          label: 'Inspect Rhodes Dossier',
-          scholarshipId: 'sch-rhodes-2026'
-        }
-      } else if (q.includes('rhodes') || q.includes('oxford') || q.includes('missing')) {
-        reply = `For **The Rhodes Scholarship at Oxford**, you satisfy the First-Class academic standing with your ${profile.cgpa.toFixed(2)} CGPA. Here is what is still missing in your dossier:\n\n• **6 Letters of Recommendation**: You currently have 1 academic letter in your vault.\n• **Personal Statement (1000 words)**: Outlining your character and academic leadership.\n• **Study Proposal (750 words)**: Aligned with your targeted Oxford degree.`
-        action = {
-          type: 'open_scholarship',
-          label: 'View Rhodes Criteria Breakdown',
-          scholarshipId: 'sch-rhodes-2026'
-        }
-      } else if (q.includes('tata') || q.includes('income') || q.includes('means')) {
-        reply = `The **Tata Trusts Means Grant** provides direct tuition subsidies (₹1,50,000/yr) for undergraduate and postgraduate students. Key rules:\n\n• **Income Ceiling**: Strict limit of ₹4,50,000 per annum. Your profile reflects ${profile.incomeBracket}, which qualifies.\n• **Academic Score**: Minimum 60% in prior semesters (your ${profile.cgpa.toFixed(2)} CGPA easily clears this).\n• **Mandatory Document**: Verified income certificate from the Tehsildar (already active in your Document Vault).`
-        action = {
-          type: 'open_scholarship',
-          label: 'Inspect Tata Trusts Grant',
-          scholarshipId: 'sch-tata-2026'
-        }
-      } else if (q.includes('priority') || q.includes('next') || q.includes('step')) {
-        const activeApp = applications.find((a) => a.status === 'preparing' || a.status === 'ready')
-        if (activeApp) {
-          reply = `Your highest priority application is **${activeApp.scholarshipTitle}** (Target deadline: ${activeApp.deadline}).\n\nNext Step: ${activeApp.nextStep}\n\nMake sure to review your attached certificates in the Document Vault before clicking submit.`
+        if (q.includes('match') || q.includes('eligible') || q.includes('best')) {
+          reply = `Based on your ${profile.cgpa.toFixed(2)} CGPA, ${profile.educationLevel} enrollment, and ${profile.course} discipline, you qualify for 3 flagship opportunities:\n\n1. **The Rhodes Scholarship at Oxford** (100% Fees + £19,092/yr stipend) — You exceed the 8.5 CGPA threshold.\n2. **Generation Google Scholarship (APAC)** ($2,500) — Aligns with your CS degree.\n3. **Prime Minister's Research Fellowship (PMRF)** (₹9.6L/yr) — If you plan direct Ph.D. research at an IIT.`
           action = {
-            type: 'open_tracker',
-            label: 'Open Application Tracker'
+            type: 'open_scholarship',
+            label: 'Inspect Rhodes Dossier',
+            scholarshipId: 'sch-rhodes-2026'
+          }
+        } else if (q.includes('rhodes') || q.includes('oxford') || q.includes('missing')) {
+          reply = `For **The Rhodes Scholarship at Oxford**, you satisfy the First-Class academic standing with your ${profile.cgpa.toFixed(2)} CGPA. Here is what is still missing in your dossier:\n\n• **6 Letters of Recommendation**: You currently have 1 academic letter in your vault.\n• **Personal Statement (1000 words)**: Outlining your character and academic leadership.\n• **Study Proposal (750 words)**: Aligned with your targeted Oxford degree.`
+          action = {
+            type: 'open_scholarship',
+            label: 'View Rhodes Criteria Breakdown',
+            scholarshipId: 'sch-rhodes-2026'
+          }
+        } else if (q.includes('tata') || q.includes('income') || q.includes('means')) {
+          reply = `The **Tata Trusts Means Grant** provides direct tuition subsidies (₹1,50,000/yr) for undergraduate and postgraduate students. Key rules:\n\n• **Income Ceiling**: Strict limit of ₹4,50,000 per annum. Your profile reflects ${profile.incomeBracket}, which qualifies.\n• **Academic Score**: Minimum 60% in prior semesters (your ${profile.cgpa.toFixed(2)} CGPA easily clears this).\n• **Mandatory Document**: Verified income certificate from the Tehsildar (already active in your Document Vault).`
+          action = {
+            type: 'open_scholarship',
+            label: 'Inspect Tata Trusts Grant',
+            scholarshipId: 'sch-tata-2026'
+          }
+        } else if (q.includes('priority') || q.includes('next') || q.includes('step')) {
+          const activeApp = applications.find((a) => a.status === 'preparing' || a.status === 'ready')
+          if (activeApp) {
+            reply = `Your highest priority application is **${activeApp.scholarshipTitle}** (Target deadline: ${activeApp.deadline}).\n\nNext Step: ${activeApp.nextStep}\n\nMake sure to review your attached certificates in the Document Vault before clicking submit.`
+            action = {
+              type: 'open_tracker',
+              label: 'Open Application Tracker'
+            }
+          } else {
+            reply = `Your profile is completely up to date. Your next best action is to browse the catalog and bookmark 2 to 3 target opportunities to begin drafting materials.`
+          }
+        } else if (q.includes('stem') || q.includes('women') || q.includes('tech') || q.includes('google')) {
+          reply = `We have two premier corporate grants specifically supporting women in computer science:\n\n• **Generation Google Scholarship (APAC)** ($2,500 + virtual scholars retreat)\n• **Adobe Women in Technology Scholarship** ($10,000 + 1-year Creative Cloud + Adobe internship fast-track)\n\nBoth require coding or diversity impact essays, which you can draft directly.`
+          action = {
+            type: 'open_scholarship',
+            label: 'View Google APAC Grant',
+            scholarshipId: 'sch-google-apac-2026'
           }
         } else {
-          reply = `Your profile is completely up to date. Your next best action is to browse the catalog and bookmark 2 to 3 target opportunities to begin drafting materials.`
+          reply = `I have audited your question against our institutional database. As a ${profile.educationLevel} student in ${profile.course} with ${profile.cgpa.toFixed(2)} CGPA, you have strong standing for both prestigious merit endowments and need-based grants. Feel free to ask about any specific scholarship or document requirement!`
         }
-      } else if (q.includes('stem') || q.includes('women') || q.includes('tech') || q.includes('google')) {
-        reply = `We have two premier corporate grants specifically supporting women in computer science:\n\n• **Generation Google Scholarship (APAC)** ($2,500 + virtual scholars retreat)\n• **Adobe Women in Technology Scholarship** ($10,000 + 1-year Creative Cloud + Adobe internship fast-track)\n\nBoth require coding or diversity impact essays, which you can draft directly.`
-        action = {
-          type: 'open_scholarship',
-          label: 'View Google APAC Grant',
-          scholarshipId: 'sch-google-apac-2026'
+
+        const botMsg: ChatMessage = {
+          id: `b-${Date.now()}`,
+          sender: 'assistant',
+          text: reply,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          suggestedAction: action
         }
-      } else {
-        reply = `I have audited your question against our institutional database. As a ${profile.educationLevel} student in ${profile.course} with ${profile.cgpa.toFixed(2)} CGPA, you have strong standing for both prestigious merit endowments and need-based grants. Feel free to ask about any specific scholarship or document requirement!`
-      }
 
-      const botMsg: ChatMessage = {
-        id: `b-${Date.now()}`,
-        sender: 'assistant',
-        text: reply,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        suggestedAction: action
+        setMessages((prev) => [...prev, botMsg])
+      } catch {
+        const errorMsg: ChatMessage = {
+          id: `b-${Date.now()}`,
+          sender: 'assistant',
+          text: 'I encountered an error querying the scholarship database. Please check your network connection or browse the scholarship directory directly.',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          suggestedAction: {
+            type: 'open_scholarship',
+            label: 'Explore Catalog',
+            scholarshipId: 'sch-rhodes-2026'
+          }
+        }
+        setMessages((prev) => [...prev, errorMsg])
+      } finally {
+        setIsTyping(false)
       }
-
-      setMessages((prev) => [...prev, botMsg])
-      setIsTyping(false)
     }, 700)
   }
 

@@ -347,13 +347,13 @@ export function BookArchiveShelf() {
 
                 <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
                   <span className="text-amber-300 font-bold">{pathway.disbursementAverage}</span>
-                  <button
+                  <span
                     className={`px-3 py-1 rounded-lg text-xs font-bold transition-colors ${
                       isActive ? 'bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-200'
                     }`}
                   >
                     {isActive ? 'Active Filter' : 'Select Volume'}
-                  </button>
+                  </span>
                 </div>
               </div>
             )

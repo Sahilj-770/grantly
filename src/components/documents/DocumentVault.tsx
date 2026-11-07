@@ -190,6 +190,31 @@ export function DocumentVault() {
           ))}
         </div>
 
+        {/* Empty State when no documents exist */}
+        {filteredDocs.length === 0 && (
+          <div className="p-12 text-center rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
+            <div className="w-12 h-12 rounded-2xl bg-teal-50 text-[#0D9488] flex items-center justify-center mx-auto">
+              <FileCheck2 className="w-6 h-6" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="font-serif text-lg font-bold text-[#0A192F]">
+                {selectedCategory === 'all'
+                  ? 'Your Document Vault is Empty'
+                  : `No ${selectedCategory.toUpperCase()} Documents Found`}
+              </h3>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                Upload verified transcripts, income certificates, and recommendation letters to automate your scholarship eligibility audits.
+              </p>
+            </div>
+            <button
+              onClick={() => setIsUploadModalOpen(true)}
+              className="px-5 py-2.5 rounded-xl bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Upload Certificate
+            </button>
+          </div>
+        )}
+
         {/* UPLOAD MODAL */}
         {isUploadModalOpen && (
           <div

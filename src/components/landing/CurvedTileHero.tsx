@@ -455,8 +455,17 @@ export function CurvedTileHero() {
                 ref={(el) => {
                   cardRefs.current[i] = el
                 }}
+                role="button"
+                tabIndex={0}
+                aria-label={`Inspect ${tile.title} at ${tile.institution}`}
                 onClick={() => quickOpenModal(tile.id)}
-                className="absolute top-0 left-0 will-change-transform pointer-events-auto cursor-pointer group"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    quickOpenModal(tile.id)
+                  }
+                }}
+                className="absolute top-0 left-0 will-change-transform pointer-events-auto cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl"
                 style={{ visibility: 'hidden' }}
               >
                 {/* SVG Deformation Path Overlay & Clipping */}
@@ -531,8 +540,17 @@ export function CurvedTileHero() {
             {HERO_OPPORTUNITY_TILES.map((tile) => (
               <div
                 key={tile.id}
+                role="button"
+                tabIndex={0}
+                aria-label={`Inspect ${tile.title} at ${tile.institution}`}
                 onClick={() => quickOpenModal(tile.id)}
-                className="min-w-[82vw] snap-center rounded-2xl bg-white border border-[#CBD5E1] p-5 shadow-md flex flex-col justify-between space-y-4"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    quickOpenModal(tile.id)
+                  }
+                }}
+                className="min-w-[82vw] snap-center rounded-2xl bg-white border border-[#CBD5E1] p-5 shadow-md flex flex-col justify-between space-y-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               >
                 <div className="relative w-full h-36 rounded-xl overflow-hidden bg-slate-100">
                   <img src={tile.image} alt={tile.title} className="w-full h-full object-cover" />

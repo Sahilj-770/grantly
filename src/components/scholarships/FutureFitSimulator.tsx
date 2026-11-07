@@ -121,10 +121,14 @@ export function FutureFitSimulator() {
 
   return (
     <div className="w-full bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mb-8 transition-all">
-      {/* Header bar / accordion toggle */}
-      <div
+      {/* Semantic Accessible Accordion Header Button */}
+      <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="p-5 sm:p-6 bg-gradient-to-r from-slate-900 via-[#0A192F] to-slate-900 text-white cursor-pointer select-none flex items-center justify-between gap-4"
+        aria-expanded={isOpen}
+        aria-controls="futurefit-simulator-panel"
+        id="futurefit-simulator-trigger"
+        className="w-full text-left p-5 sm:p-6 bg-gradient-to-r from-slate-900 via-[#0A192F] to-slate-900 text-white cursor-pointer select-none flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 transition-colors group"
       >
         <div className="flex items-center gap-3.5">
           <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center shrink-0">
@@ -139,7 +143,7 @@ export function FutureFitSimulator() {
                 Academic What-If Simulator
               </span>
             </div>
-            <h3 className="font-serif text-lg sm:text-xl font-bold text-white mt-0.5">
+            <h3 className="font-serif text-lg sm:text-xl font-bold text-white mt-0.5 group-hover:text-amber-300 transition-colors">
               Explore Academic Potential & Threshold Shifts
             </h3>
           </div>
@@ -152,18 +156,27 @@ export function FutureFitSimulator() {
               <span>+{simulationData.newlyAccessibleCount} Unlocked at {hypotheticalCgpa.toFixed(2)} CGPA</span>
             </div>
           )}
-          <button
-            className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white transition-colors"
-            aria-label={isOpen ? 'Collapse FutureFit Simulator' : 'Expand FutureFit Simulator'}
+          <span
+            aria-hidden="true"
+            className="p-2 rounded-xl bg-slate-800 text-slate-300 group-hover:text-white transition-colors flex items-center justify-center"
           >
             {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-          </button>
+          </span>
         </div>
-      </div>
+      </button>
 
       {/* Expanded Simulator Body */}
       {isOpen && (
-        <div className="p-6 sm:p-8 space-y-8 bg-[#FBFBFA]">
+        <div
+          id="futurefit-simulator-panel"
+          role="region"
+          aria-labelledby="futurefit-simulator-trigger"
+          className="p-6 sm:p-8 space-y-8 bg-[#FBFBFA]"
+        >
+          {/* Screen reader live announcement of simulation changes */}
+          <div className="sr-only" aria-live="polite" aria-atomic="true">
+            {`Projecting academic cutoff at ${hypotheticalCgpa.toFixed(2)} CGPA. Found ${simulationData.newlyAccessibleCount} newly accessible opportunities.`}
+          </div>
           {/* Controls Bar: Actual Profile vs Hypothetical Slider */}
           <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
@@ -220,14 +233,25 @@ export function FutureFitSimulator() {
               </div>
 
               <input
+                id="futurefit-cgpa-slider"
                 type="range"
                 min="5.0"
                 max="10.0"
                 step="0.05"
                 value={hypotheticalCgpa}
                 onChange={(e) => setHypotheticalCgpa(parseFloat(e.target.value))}
-                aria-label="Hypothetical CGPA Slider"
-                className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563EB] focus:outline-none focus:ring-2 focus:ring-blue-400"
+                aria-label="Hypothetical Target CGPA Slider"
+                aria-valuemin={5.0}
+                aria-valuemax={10.0}
+                aria-valuenow={hypotheticalCgpa}
+                aria-valuetext={`${hypotheticalCgpa.toFixed(2)} CGPA, ${
+                  hypotheticalCgpa > profile.cgpa
+                    ? `projected increase of ${(hypotheticalCgpa - profile.cgpa).toFixed(2)} above baseline`
+                    : hypotheticalCgpa < profile.cgpa
+                    ? `projected decrease of ${(profile.cgpa - hypotheticalCgpa).toFixed(2)} below baseline`
+                    : 'equal to actual baseline'
+                }`}
+                className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563EB] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               />
             </div>
           </div>

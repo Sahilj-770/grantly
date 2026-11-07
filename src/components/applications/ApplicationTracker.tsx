@@ -302,8 +302,17 @@ export function ApplicationTracker() {
                       return (
                         <div
                           key={app.id}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`Inspect ${app.scholarshipTitle} dossier`}
                           onClick={() => setSelectedAppId(app.id)}
-                          className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-400 transition-all cursor-pointer group space-y-3"
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              setSelectedAppId(app.id)
+                            }
+                          }}
+                          className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-400 transition-all cursor-pointer group space-y-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
                         >
                           {/* Card Top: Title & Urgency */}
                           <div className="space-y-1">
@@ -393,8 +402,17 @@ export function ApplicationTracker() {
                   {filteredApplications.map((app) => (
                     <tr
                       key={app.id}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`Inspect ${app.scholarshipTitle} dossier`}
                       onClick={() => setSelectedAppId(app.id)}
-                      className="hover:bg-blue-50/40 transition-colors cursor-pointer group"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          setSelectedAppId(app.id)
+                        }
+                      }}
+                      className="hover:bg-blue-50/40 transition-colors cursor-pointer group focus:outline-none focus:bg-blue-50"
                     >
                       <td className="py-3.5 px-4">
                         <div className="font-serif font-bold text-sm text-[#0A192F] group-hover:text-[#2563EB]">

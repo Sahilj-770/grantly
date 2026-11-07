@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useStore } from '../../services/scholarshipStore'
 import { ScholarshipCard } from '../scholarships/ScholarshipCard'
 import { DashboardOpportunityRibbon } from './DashboardOpportunityRibbon'
@@ -30,9 +30,46 @@ export function StudentDashboard() {
     .sort((a, b) => (b.eligibility?.overallMatchScore || 0) - (a.eligibility?.overallMatchScore || 0))
     .slice(0, 3)
 
-  // Find urgent upcoming application
-  const activeApps = applications.filter((a) => a.status !== 'approved' && a.status !== 'rejected')
-  const urgentApp = activeApps[0]
+  // Honest profile completeness based on real fields
+  const profileCompleteness = useMemo(() => {
+    const fields = [
+      Boolean(profile.name && profile.name.trim()),
+      Boolean(profile.email && profile.email.trim()),
+      Boolean(profile.educationLevel),
+      Boolean(profile.course && profile.course.trim()),
+      Boolean(profile.academicYear),
+      Boolean(profile.institution && profile.institution.trim()),
+      Boolean(profile.state && profile.state.trim()),
+      Boolean(profile.country && profile.country.trim()),
+      Boolean(profile.cgpa && profile.cgpa > 0),
+      Boolean(profile.incomeBracket),
+      Boolean(profile.category),
+      Boolean(profile.gender)
+    ]
+    const filled = fields.filter(Boolean).length
+    return Math.round((filled / fields.length) * 100)
+  }, [profile])
+
+  // Intelligent selection of the most actionable upcoming application
+  const activeApps = applications.filter(
+    (a) => a.status !== 'approved' && a.status !== 'rejected' && a.status !== 'archived' && a.status !== 'withdrawn'
+  )
+  const urgentApp = useMemo(() => {
+    if (activeApps.length === 0) return null
+    return [...activeApps].sort((a, b) => {
+      // Prioritize imminent deadlines (<= 7 days)
+      const aUrgent = a.daysRemaining <= 7 && a.daysRemaining >= 0 ? 1 : 0
+      const bUrgent = b.daysRemaining <= 7 && b.daysRemaining >= 0 ? 1 : 0
+      if (aUrgent !== bUrgent) return bUrgent - aUrgent
+
+      // Prioritize 'ready' applications needing immediate portal submission
+      if (a.status === 'ready' && b.status !== 'ready') return -1
+      if (b.status === 'ready' && a.status !== 'ready') return 1
+
+      // Then sort by nearest deadline
+      return a.daysRemaining - b.daysRemaining
+    })[0] || null
+  }, [activeApps])
 
   return (
     <div className="w-full min-h-screen bg-[#FBFBFA] py-10 px-4 sm:px-6 lg:px-8">
@@ -57,7 +94,7 @@ export function StudentDashboard() {
               <div className="text-[10px] font-mono uppercase text-slate-400">Profile Completeness</div>
               <div className="text-sm font-bold font-mono text-emerald-400 flex items-center gap-1.5 justify-center sm:justify-start">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>100% Deterministic Fit</span>
+                <span>{profileCompleteness}% Complete</span>
               </div>
             </div>
 
@@ -72,7 +109,7 @@ export function StudentDashboard() {
         </div>
 
         {/* Recommended Next Action Banner */}
-        {urgentApp && (
+        {urgentApp ? (
           <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/90 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 mt-0.5">
@@ -96,6 +133,33 @@ export function StudentDashboard() {
               className="px-5 py-2.5 bg-[#0A192F] text-white rounded-xl text-xs font-semibold hover:bg-[#2563EB] transition-colors shrink-0 flex items-center justify-center gap-2 self-start sm:self-center shadow-xs"
             >
               <span>View in Tracker</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <div className="space-y-0.5">
+                <div className="text-xs font-mono uppercase text-emerald-800 font-bold tracking-wider">
+                  Applications In Good Standing
+                </div>
+                <div className="text-sm sm:text-base font-bold text-slate-900">
+                  No Immediate Deadlines Approaching
+                </div>
+                <p className="text-xs text-slate-600">
+                  All active dossiers are up to date. Explore new verified endowments in the discovery catalog.
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setCurrentView('discovery')}
+              className="px-5 py-2.5 bg-[#0A192F] text-white rounded-xl text-xs font-semibold hover:bg-[#2563EB] transition-colors shrink-0 flex items-center justify-center gap-2 self-start sm:self-center shadow-xs"
+            >
+              <span>Explore Scholarships</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

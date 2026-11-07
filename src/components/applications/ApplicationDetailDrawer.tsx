@@ -212,16 +212,19 @@ export function ApplicationDetailDrawer({ appId, onClose }: ApplicationDetailDra
                 {app.milestones.map((milestone, idx) => {
                   const isDone = milestone.completed
                   return (
-                    <div
+                    <button
+                      type="button"
                       key={milestone.id}
+                      role="checkbox"
+                      aria-checked={isDone}
                       onClick={() => toggleMilestone(app.id, milestone.id)}
-                      className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 select-none ${
+                      className={`w-full text-left p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
                         isDone
                           ? 'bg-emerald-50/50 border-emerald-200 hover:border-emerald-300'
                           : 'bg-white border-slate-200 hover:border-slate-300'
                       }`}
                     >
-                      <button className="mt-0.5 focus:outline-none">
+                      <span aria-hidden="true" className="mt-0.5 shrink-0">
                         {isDone ? (
                           <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100" />
                         ) : (
@@ -229,7 +232,7 @@ export function ApplicationDetailDrawer({ appId, onClose }: ApplicationDetailDra
                             {idx + 1}
                           </div>
                         )}
-                      </button>
+                      </span>
 
                       <div className="flex-1 space-y-0.5">
                         <div className="flex items-center justify-between">
@@ -248,7 +251,7 @@ export function ApplicationDetailDrawer({ appId, onClose }: ApplicationDetailDra
                         </div>
                         <p className="text-xs text-slate-500">{milestone.description}</p>
                       </div>
-                    </div>
+                    </button>
                   )
                 })}
               </div>
@@ -268,18 +271,21 @@ export function ApplicationDetailDrawer({ appId, onClose }: ApplicationDetailDra
 
               <div className="space-y-2.5">
                 {app.checklist.map((item) => (
-                  <div
+                  <button
+                    type="button"
                     key={item.id}
+                    role="checkbox"
+                    aria-checked={item.completed}
                     onClick={() => toggleChecklistItem(app.id, item.id)}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 cursor-pointer transition-colors select-none"
+                    className="w-full text-left flex items-center gap-3 p-3 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 cursor-pointer transition-colors select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
                   >
-                    <button className="focus:outline-none">
+                    <span aria-hidden="true" className="shrink-0">
                       {item.completed ? (
                         <CheckSquare className="w-4 h-4 text-emerald-600" />
                       ) : (
                         <Square className="w-4 h-4 text-slate-400" />
                       )}
-                    </button>
+                    </span>
                     <span
                       className={`text-xs font-medium ${
                         item.completed ? 'text-slate-500 line-through' : 'text-slate-800'
@@ -287,7 +293,7 @@ export function ApplicationDetailDrawer({ appId, onClose }: ApplicationDetailDra
                     >
                       {item.label}
                     </span>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
