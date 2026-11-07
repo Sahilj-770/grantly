@@ -127,9 +127,10 @@ python run_grantly_qa.py
 
 Automated screenshots generated during the Playwright evaluation are preserved in `qa_screenshots/`:
 - `01_landing_curved_tile_hero.png` — Cylindrical curved reel hero with live statistics
-- `02_landing_curtain_split.png` — Scroll-bound split-curtain comparison
-- `03_landing_pathways_shelf.png` — 3D Archival pathway shelf overview
-- `04_landing_journey_ribbon.png` — 4-Stage student journey ribbon
+- `02_landing_pathways_shelf.png` — 3D Archival pathway shelf overview
+- `03_landing_journey_ribbon.png` — 4-Stage student journey ribbon
+- `04_landing_eligibility_value_prop.png` — Algorithmic eligibility vs traditional aggregators
+- `05_landing_footer.png` — Trust certifications, legal disclosures, and navigation footer
 - `06`–`09_onboarding_step1-4.png` — 4-Step deterministic criteria onboarding
 - `10b_dashboard_opportunity_ribbon.png` — 3D WebGL Opportunity Ribbon on dashboard
 - `11_scholarship_detail_modal.png` — Itemized criteria breakdown & qualification modal

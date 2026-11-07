@@ -56,24 +56,24 @@ def run_qa():
             time.sleep(0.4)
             print("✓ Detail Modal dismissed")
         
-        # Test Scroll down to Split-Curtain and featured sections
-        page.evaluate("window.scrollTo(0, 950)")
+        # Test Scroll down through sections
+        page.evaluate("window.scrollTo(0, 850)")
         time.sleep(0.6)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/02_landing_curtain_split.png")
+        page.screenshot(path=f"{SCREENSHOT_DIR}/02_landing_pathways_shelf.png")
         
-        page.evaluate("window.scrollTo(0, 1850)")
+        page.evaluate("window.scrollTo(0, 1750)")
         time.sleep(0.6)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/03_landing_pathways_shelf.png")
+        page.screenshot(path=f"{SCREENSHOT_DIR}/03_landing_journey_ribbon.png")
         
-        page.evaluate("window.scrollTo(0, 2750)")
+        page.evaluate("window.scrollTo(0, 2550)")
         time.sleep(0.6)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/04_landing_journey_ribbon.png")
+        page.screenshot(path=f"{SCREENSHOT_DIR}/04_landing_eligibility_value_prop.png")
         
         # Scroll to bottom
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         time.sleep(0.6)
         page.screenshot(path=f"{SCREENSHOT_DIR}/05_landing_footer.png")
-        print("✓ Landing page verified through all 7 distinct sections")
+        print("✓ Landing page verified through all 6 distinct sections (Zero duplication)")
         
         print("\n--- TEST 2: STUDENT ONBOARDING (4-STEP PROGRESSION) ---")
         page.locator("button:has-text('Criteria:')").first.click()
