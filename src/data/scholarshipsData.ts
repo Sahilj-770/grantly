@@ -19,6 +19,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '0.7%',
     featured: true,
     tags: ['Oxford', 'Global Leader', 'Full Ride', 'Prestigious'],
+    heroImage: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80',
     description: 'The oldest and perhaps most prestigious international scholarship programme, enabling outstanding young people from around the world to study at the University of Oxford.',
     overview: 'The Rhodes Scholarship covers all University and College fees, a personal annual living stipend (£19,092), private health insurance, and two economy-class flights to and from Oxford.',
     benefits: [
@@ -51,7 +52,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.rhodeshouse.ox.ac.uk/scholarships/the-rhodes-scholarship/',
     officialPortal: 'https://apply.rhodeshouse.ox.ac.uk/',
-    lastVerified: '2026-11-01'
+    lastVerified: '2026-11-01',
+    isOfficialVerified: true
   },
   {
     id: 'sch-pmrf-2026',
@@ -71,6 +73,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '3.2%',
     featured: true,
     tags: ['IIT/IISc', 'Ph.D.', 'National Fellowship', 'R&D'],
+    heroImage: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80',
     description: 'Designed for improving the quality of research in higher educational institutions in India, offering fellowship grants to Ph.D. candidates at IITs, IISc, and premier central universities.',
     overview: 'Fellows receive ₹70,000/month for Year 1-2, ₹75,000/month for Year 3, and ₹80,000/month for Year 4-5, along with an annual research contingency grant of ₹2 Lakhs.',
     benefits: [
@@ -99,7 +102,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.pmrf.in/',
     officialPortal: 'https://pmrf.in/apply',
-    lastVerified: '2026-11-04'
+    lastVerified: '2026-11-04',
+    isOfficialVerified: true
   },
   {
     id: 'sch-tata-2026',
@@ -119,6 +123,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '18.4%',
     featured: true,
     tags: ['Need-Based', 'Direct Bank Transfer', 'Tuition Relief', 'Inclusive'],
+    heroImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80',
     description: 'Financial aid grant tailored for underprivileged undergraduate and postgraduate students across India pursuing accredited degree courses in recognized institutions.',
     overview: 'The grant directly subsidizes college tuition fees for students whose total family income does not exceed ₹4.5 LPA, ensuring no meritorious student drops out due to economic hardship.',
     benefits: [
@@ -147,7 +152,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.tatatrusts.org/our-work/individual-grants-programme/education-grants',
     officialPortal: 'https://tatatrusts.igp.org/',
-    lastVerified: '2026-10-28'
+    lastVerified: '2026-10-28',
+    isOfficialVerified: true
   },
   {
     id: 'sch-gates-cambridge-2026',
@@ -167,6 +173,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '1.4%',
     featured: true,
     tags: ['Cambridge', 'Social Impact', 'Global Leaders', 'Full Ride'],
+    heroImage: 'https://images.unsplash.com/photo-1590579491624-f98f36d4c763?auto=format&fit=crop&w=800&q=80',
     description: 'Full-cost awards for outstanding applicants outside the UK to pursue a full-time postgraduate degree in any subject available at the University of Cambridge.',
     overview: 'Aims to build a global network of future leaders committed to improving the lives of others through academic excellence, leadership potential, and social responsibility.',
     benefits: [
@@ -195,7 +202,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.gatescambridge.org/',
     officialPortal: 'https://www.postgraduate.study.cam.ac.uk/how-to-apply',
-    lastVerified: '2026-11-03'
+    lastVerified: '2026-11-03',
+    isOfficialVerified: true
   },
   {
     id: 'sch-national-overseas-2026',
@@ -215,6 +223,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '11.5%',
     featured: false,
     tags: ['Affirmative Action', 'Study Abroad', 'Full Government Sponsorship', 'Masters/PhD'],
+    heroImage: 'https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=800&q=80',
     description: 'Provides financial assistance to selected candidates from SC, De-notified Nomadic, Semi-Nomadic Tribes, and Traditional Artisans to pursue Master’s or Ph.D. degrees abroad in top 500 QS world ranked universities.',
     overview: 'Covers actual tuition fees, annual contingency allowance ($1,500), monthly maintenance allowance ($1,540 in USA / £990 in UK), visa fees, and roundtrip international air travel.',
     benefits: [
@@ -244,7 +253,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://nosmsje.gov.in/',
     officialPortal: 'https://nosmsje.gov.in/ApplicantRegistration.aspx',
-    lastVerified: '2026-10-15'
+    lastVerified: '2026-10-15',
+    isOfficialVerified: true
   },
   {
     id: 'sch-google-apac-2026',
@@ -264,8 +274,9 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '4.2%',
     featured: true,
     tags: ['Women in Tech', 'Computer Science', 'Mentorship', 'Google Community'],
+    heroImage: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
     description: 'Awarded to students identifying as women studying computer science or related technical fields, recognizing academic excellence, leadership, and diversity advocacy.',
-    overview: 'Recipients receive a \$2,500 grant for the academic year along with entry into Google’s exclusive student retreat, technical mentorship from Google engineers, and career preparation workshops.',
+    overview: 'Recipients receive a $2,500 grant for the academic year along with entry into Google’s exclusive student retreat, technical mentorship from Google engineers, and career preparation workshops.',
     benefits: [
       '$2,500 direct grant applied towards tuition, books, or educational hardware',
       'Invitations to Google APAC Virtual Scholars Retreat',
@@ -291,7 +302,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://buildyourfuture.withgoogle.com/scholarships/generation-google-scholarship-apac',
     officialPortal: 'https://buildyourfuture.withgoogle.com/apply',
-    lastVerified: '2026-11-02'
+    lastVerified: '2026-11-02',
+    isOfficialVerified: true
   },
   {
     id: 'sch-reliance-found-2026',
@@ -311,6 +323,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '6.8%',
     featured: true,
     tags: ['Merit-cum-Means', 'Alumni Network', 'Leadership Workshops', 'Undergrad'],
+    heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
     description: 'Empowers 5,000 meritorious undergraduate students each year with grants and personal development programs across all disciplines in higher education.',
     overview: 'Selected scholars receive up to ₹2,00,000 over their degree tenure, alongside structured leadership camps, career mentorship, and a vast peer community across India.',
     benefits: [
@@ -339,7 +352,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.scholarships.reliancefoundation.org/',
     officialPortal: 'https://www.scholarships.reliancefoundation.org/Undergraduate_Scholarship.aspx',
-    lastVerified: '2026-10-30'
+    lastVerified: '2026-10-30',
+    isOfficialVerified: true
   },
   {
     id: 'sch-fulbright-nehru-2026',
@@ -359,6 +373,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '2.1%',
     featured: false,
     tags: ['USA', 'Diplomacy', 'USIEF', 'Cultural Exchange', 'Prestigious'],
+    heroImage: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80',
     description: 'Designed for highly motivated Indian graduates demonstrating leadership qualities, substantial work experience, and commitment to public service in their chosen fields.',
     overview: 'Provides J-1 visa sponsorship, tuition, monthly maintenance allowance, accident and sickness coverage, round-trip air travel, and enrichment seminars across the United States.',
     benefits: [
@@ -388,7 +403,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.usief.org.in/Fulbright-Nehru-Master-Fellowships.aspx',
     officialPortal: 'https://apply.iie.org/ffsp2026',
-    lastVerified: '2026-11-05'
+    lastVerified: '2026-11-05',
+    isOfficialVerified: true
   },
   {
     id: 'sch-charpak-2026',
@@ -408,6 +424,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '9.2%',
     featured: false,
     tags: ['France', 'Europe', 'Campus France', 'Schengen Mobility'],
+    heroImage: 'https://images.unsplash.com/photo-1507842229451-28b144c54f21?auto=format&fit=crop&w=800&q=80',
     description: 'Designed for Indian students of all academic profiles wishing to pursue a Master’s degree at a renowned higher education institution in France.',
     overview: 'Provides €860 monthly living allowance, French national student health insurance, student visa fee exemption, and dedicated assistance with Campus France student housing.',
     benefits: [
@@ -436,54 +453,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://www.inde.campusfrance.org/charpak-master-s-program',
     officialPortal: 'https://scholarship.inde.campusfrance.org/',
-    lastVerified: '2026-10-22'
-  },
-  {
-    id: 'sch-cwit-arts-2026',
-    title: 'Charles Wallace India Trust Arts & Heritage Award',
-    provider: 'Charles Wallace India Trust & British Council',
-    category: 'creative',
-    amount: 4500,
-    currency: '£',
-    amountFormatted: '£4,500 Grant + UK Residency',
-    coverageType: 'One-Time Award',
-    deadline: '2026-12-28',
-    daysRemaining: 51,
-    educationLevels: ['Postgraduate', 'Doctoral'],
-    eligibleFields: ['Visual Arts', 'Creative Writing', 'Film & Photography', 'Heritage Conservation', 'Museum Studies', 'Performing Arts'],
-    minCgpa: 6.5,
-    maxFamilyIncome: null,
-    acceptanceRate: '5.6%',
-    featured: false,
-    tags: ['Arts', 'Creative Writing', 'UK Residency', 'British Council'],
-    description: 'Enables mid-career and emerging Indian artists, writers, and heritage professionals to spend up to 3 months in the UK on tailored creative residencies.',
-    overview: 'Grants contribute towards international travel, subsistence, and institutional affiliation costs in the United Kingdom for practitioners in the arts and cultural conservation.',
-    benefits: [
-      'Grant of £1,500 to £4,500 towards travel and UK living expenses',
-      'Affiliation with premier UK cultural centres, museums, and studios',
-      'Dedicated showcase opportunity at British Council London',
-      'Access to Charles Wallace Fellow alumni network of celebrated authors and curators'
-    ],
-    requirements: [
-      { id: 'req-citi', label: 'Indian citizen living in India without recent extended UK study', mandatory: true, type: 'citizenship' },
-      { id: 'req-port', label: 'Exceptional creative portfolio or proven published body of work', mandatory: true, type: 'document' },
-      { id: 'req-affil', label: 'Confirmation of invitation or host affiliation from a UK host institution', mandatory: true, type: 'academic' }
-    ],
-    requiredDocuments: [
-      'Comprehensive 10-page Portfolio of Creative Work (PDF)',
-      'Letter of affiliation or formal invitation from UK host university or residency',
-      'Detailed proposal outlining objectives and expected public output',
-      'Two professional letters of reference from recognized arts practitioners'
-    ],
-    applicationProcedure: [
-      'Prepare project proposal and secure host UK residency endorsement.',
-      'Submit online application through British Council India arts portal.',
-      'Portfolio review by joint UK-India arts curator committee.',
-      'Final interview at British Council New Delhi.'
-    ],
-    sourceUrl: 'https://www.britishcouncil.in/study-uk/scholarships/charles-wallace-india-trust',
-    officialPortal: 'https://cwitarts.britishcouncil.org.in/',
-    lastVerified: '2026-10-18'
+    lastVerified: '2026-10-22',
+    isOfficialVerified: true
   },
   {
     id: 'sch-adobe-women-2026',
@@ -503,8 +474,9 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '2.5%',
     featured: true,
     tags: ['Tech Leaders', 'AI Research', 'Adobe Internship', 'Women in Tech'],
+    heroImage: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
     description: 'Recognizes outstanding female undergraduate and master’s students in computer science and AI, providing financial awards and research internships at Adobe.',
-    overview: 'Recipients receive a \$10,000 cash grant, an opportunity to interview for a summer internship at Adobe Research, and a free 1-year Adobe Creative Cloud All Apps subscription.',
+    overview: 'Recipients receive a $10,000 cash grant, an opportunity to interview for a summer internship at Adobe Research, and a free 1-year Adobe Creative Cloud All Apps subscription.',
     benefits: [
       '$10,000 direct tuition and academic stipend',
       '1-year Adobe Creative Cloud All-Apps subscription license',
@@ -530,7 +502,8 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://research.adobe.com/scholarship/',
     officialPortal: 'https://research.adobe.com/scholarship/apply',
-    lastVerified: '2026-11-06'
+    lastVerified: '2026-11-06',
+    isOfficialVerified: true
   },
   {
     id: 'sch-inspire-she-2026',
@@ -550,6 +523,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     acceptanceRate: '12.0%',
     featured: false,
     tags: ['Pure Science', 'DST Govt of India', 'Direct DBT', 'B.Sc./M.Sc.'],
+    heroImage: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80',
     description: 'Offers 10,000 scholarships each year to students undertaking Bachelor and Masters level courses in Natural and Basic Sciences across top Indian universities.',
     overview: 'Provides ₹5,000/month (total ₹60,000/year) plus an additional mentorship cost grant of ₹20,000/year for undertaking mandatory summer research projects.',
     benefits: [
@@ -577,6 +551,56 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     ],
     sourceUrl: 'https://online-inspire.gov.in/',
     officialPortal: 'https://online-inspire.gov.in/Account/Register',
-    lastVerified: '2026-10-19'
+    lastVerified: '2026-10-19',
+    isOfficialVerified: true
+  },
+  {
+    id: 'sch-cwit-arts-2026',
+    title: 'Charles Wallace India Trust Arts & Heritage Award',
+    provider: 'Charles Wallace India Trust & British Council',
+    category: 'creative',
+    amount: 4500,
+    currency: '£',
+    amountFormatted: '£4,500 Grant + UK Residency',
+    coverageType: 'One-Time Award',
+    deadline: '2026-12-28',
+    daysRemaining: 51,
+    educationLevels: ['Postgraduate', 'Doctoral'],
+    eligibleFields: ['Visual Arts', 'Creative Writing', 'Film & Photography', 'Heritage Conservation', 'Museum Studies', 'Performing Arts'],
+    minCgpa: 6.5,
+    maxFamilyIncome: null,
+    acceptanceRate: '5.6%',
+    featured: false,
+    tags: ['Arts', 'Creative Writing', 'UK Residency', 'British Council'],
+    heroImage: 'https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=800&q=80',
+    description: 'Enables mid-career and emerging Indian artists, writers, and heritage professionals to spend up to 3 months in the UK on tailored creative residencies.',
+    overview: 'Grants contribute towards international travel, subsistence, and institutional affiliation costs in the United Kingdom for practitioners in the arts and cultural conservation.',
+    benefits: [
+      'Grant of £1,500 to £4,500 towards travel and UK living expenses',
+      'Affiliation with premier UK cultural centres, museums, and studios',
+      'Dedicated showcase opportunity at British Council London',
+      'Access to Charles Wallace Fellow alumni network of celebrated authors and curators'
+    ],
+    requirements: [
+      { id: 'req-citi', label: 'Indian citizen living in India without recent extended UK study', mandatory: true, type: 'citizenship' },
+      { id: 'req-port', label: 'Exceptional creative portfolio or proven published body of work', mandatory: true, type: 'document' },
+      { id: 'req-affil', label: 'Confirmation of invitation or host affiliation from a UK host institution', mandatory: true, type: 'academic' }
+    ],
+    requiredDocuments: [
+      'Comprehensive 10-page Portfolio of Creative Work (PDF)',
+      'Letter of affiliation or formal invitation from UK host university or residency',
+      'Detailed proposal outlining objectives and expected public output',
+      'Two professional letters of reference from recognized arts practitioners'
+    ],
+    applicationProcedure: [
+      'Prepare project proposal and secure host UK residency endorsement.',
+      'Submit online application through British Council India arts portal.',
+      'Portfolio review by joint UK-India arts curator committee.',
+      'Final interview at British Council New Delhi.'
+    ],
+    sourceUrl: 'https://www.britishcouncil.in/study-uk/scholarships/charles-wallace-india-trust',
+    officialPortal: 'https://cwitarts.britishcouncil.org.in/',
+    lastVerified: '2026-10-18',
+    isOfficialVerified: true
   }
 ]

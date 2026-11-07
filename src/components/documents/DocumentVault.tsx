@@ -78,7 +78,7 @@ export function DocumentVault() {
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600 font-mono">
               <Lock className="w-3.5 h-3.5 text-slate-500" />
-              <span>Client-Side AES Sandbox</span>
+              <span>Local Browser Sandbox (Zero Cloud Upload)</span>
             </div>
 
             <button
@@ -91,11 +91,11 @@ export function DocumentVault() {
           </div>
         </div>
 
-        {/* Security Disclosure Notice */}
+        {/* Security & Storage Disclosure Notice */}
         <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs text-slate-600">
           <ShieldCheck className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            <strong>Confidentiality Guarantee:</strong> Uploaded materials are cryptographically sandboxed. Files are used strictly for scholarship qualification audits and document bundling. We never transmit your tax records or identity documents to unverified third parties.
+            <strong>Privacy & Storage Transparency:</strong> All certificates and credentials in this demonstration vault are stored strictly in your browser's local sandbox storage (LocalStorage / Cache API). No documents, tax records, or biometric credentials are ever transmitted to external servers or third-party ad networks.
           </p>
         </div>
 
@@ -287,7 +287,7 @@ export function DocumentVault() {
                     type="submit"
                     className="px-5 py-2 rounded-xl bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8]"
                   >
-                    Save & Encrypt
+                    Save to Local Vault
                   </button>
                 </div>
               </form>

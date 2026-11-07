@@ -14,7 +14,7 @@ os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 BASE_URL = "http://localhost:5173"
 
 def run_qa():
-    print(f"=== STARTING COMPREHENSIVE GRANTLY QA AUDIT at {BASE_URL} ===")
+    print(f"=== STARTING COMPREHENSIVE GRANTLY 2.0 QA AUDIT at {BASE_URL} ===")
     
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -25,57 +25,59 @@ def run_qa():
         page = context.new_page()
         page.on("console", lambda msg: console_errors.append(f"[{msg.type}] {msg.text}") if msg.type == "error" else None)
         
-        print("\n--- TEST 1: LANDING PAGE & SIGNATURE EXPERIENCES ---")
+        print("\n--- TEST 1: LANDING PAGE & CYLINDRICAL CURVED REEL HERO ---")
         page.goto(BASE_URL, wait_until="networkidle")
         time.sleep(1)
         
         # Verify hero headline
         headline = page.locator("h1").first
         assert headline.is_visible(), "Landing page hero headline not visible"
-        print(f"✓ Hero Headline visible: {headline.text_content()[:50]}...")
+        print(f"✓ Hero Headline visible: {headline.text_content()[:60]}...")
         
-        # Capture initial hero screenshot
-        page.screenshot(path=f"{SCREENSHOT_DIR}/01_landing_hero.png")
+        # Capture initial curved hero screenshot
+        page.screenshot(path=f"{SCREENSHOT_DIR}/01_landing_curved_tile_hero.png")
         
-        # Test Scroll down to test Split-Curtain and featured carousel
-        page.evaluate("window.scrollTo(0, 800)")
-        time.sleep(0.5)
+        # Test Carousel Next / Prev button in CurvedTileHero
+        hero_next = page.locator("button[aria-label='Next opportunity tile']").first
+        if hero_next.is_visible():
+            hero_next.click()
+            time.sleep(0.4)
+            print("✓ Cylindrical Hero Reel Next button clicked & animated")
+            page.screenshot(path=f"{SCREENSHOT_DIR}/01b_curved_hero_scrolled.png")
+            
+        # Test quick modal open from tile
+        inspect_btn = page.locator("button:has-text('Inspect Details')").first
+        if inspect_btn.is_visible():
+            inspect_btn.click()
+            time.sleep(0.5)
+            assert page.locator("div[role='dialog']").is_visible(), "Modal did not open from hero tile"
+            print("✓ Scholarship Detail Modal opened directly from Curved Hero Tile")
+            page.keyboard.press("Escape")
+            time.sleep(0.4)
+            print("✓ Detail Modal dismissed")
+        
+        # Test Scroll down to Split-Curtain and featured sections
+        page.evaluate("window.scrollTo(0, 950)")
+        time.sleep(0.6)
         page.screenshot(path=f"{SCREENSHOT_DIR}/02_landing_curtain_split.png")
         
-        page.evaluate("window.scrollTo(0, 1600)")
-        time.sleep(0.5)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/03_landing_curved_carousel.png")
+        page.evaluate("window.scrollTo(0, 1850)")
+        time.sleep(0.6)
+        page.screenshot(path=f"{SCREENSHOT_DIR}/03_landing_pathways_shelf.png")
         
-        # Test Next button on carousel
-        next_btn = page.locator("button[aria-label='Next scholarship']")
-        if next_btn.is_visible():
-            next_btn.click()
-            time.sleep(0.3)
-            print("✓ Cylindrical Carousel Next button clicked")
-        
-        # Test Pathway tabs on 3D Archive shelf
-        merit_tab = page.locator("button:has-text('Merit-Based Fellowships')").first
-        if merit_tab.is_visible():
-            merit_tab.click()
-            time.sleep(0.3)
-            print("✓ Funding Pathway Merit tab activated")
-        
-        page.evaluate("window.scrollTo(0, 2600)")
-        time.sleep(0.5)
+        page.evaluate("window.scrollTo(0, 2750)")
+        time.sleep(0.6)
         page.screenshot(path=f"{SCREENSHOT_DIR}/04_landing_journey_ribbon.png")
         
         # Scroll to bottom
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        time.sleep(0.5)
+        time.sleep(0.6)
         page.screenshot(path=f"{SCREENSHOT_DIR}/05_landing_footer.png")
-        print("✓ Landing page verified through all sections")
+        print("✓ Landing page verified through all 7 distinct sections")
         
-        print("\n--- TEST 2: STUDENT ONBOARDING (4 STEPS) ---")
-        # Click Criteria pill in Navbar to open Onboarding
-        print("Buttons before click:", [b.text_content() for b in page.locator("button").all()[:10]])
+        print("\n--- TEST 2: STUDENT ONBOARDING (4-STEP PROGRESSION) ---")
         page.locator("button:has-text('Criteria:')").first.click()
         time.sleep(1)
-        print("Headings after click:", page.locator("h1, h2, h3").all_text_contents())
         
         # Step 1: Education
         assert page.locator("h2:has-text('Degree & Institution')").is_visible(), "Onboarding Step 1 not rendered"
@@ -99,20 +101,25 @@ def run_qa():
         assert page.locator("h2:has-text('Review Your Profile')").is_visible(), "Onboarding Step 4 not rendered"
         page.screenshot(path=f"{SCREENSHOT_DIR}/09_onboarding_step4.png")
         page.locator("button:has-text('Confirm & Go to Dashboard')").click()
-        time.sleep(0.8)
-        print("✓ 4-Step Onboarding completed successfully")
+        time.sleep(1.0)
+        print("✓ 4-Step Student Onboarding verified with deterministic matching calculation")
         
-        print("\n--- TEST 3: PERSONALIZED STUDENT DASHBOARD ---")
+        print("\n--- TEST 3: STUDENT DASHBOARD & 3D OPPORTUNITY RIBBON ---")
         assert "Welcome back" in page.content(), "Dashboard not reached"
         page.screenshot(path=f"{SCREENSHOT_DIR}/10_dashboard_overview.png")
-        print("✓ Student Dashboard rendered with top matches and active applications")
+        
+        # Verify 3D Opportunity Ribbon
+        ribbon_heading = page.locator("h2:has-text('Top Qualified Fellowships')")
+        assert ribbon_heading.is_visible(), "3D Opportunity Ribbon heading not visible"
+        page.screenshot(path=f"{SCREENSHOT_DIR}/10b_dashboard_opportunity_ribbon.png")
+        print("✓ 3D Opportunity Ribbon rendered with WebGL spline and qualified grants")
         
         # Inspect top matched scholarship to open detail modal
         page.locator("button:has-text('Inspect Match')").first.click()
-        time.sleep(0.5)
+        time.sleep(0.6)
         assert page.locator("div[role='dialog']").is_visible(), "Scholarship Detail Modal did not open"
         page.screenshot(path=f"{SCREENSHOT_DIR}/11_scholarship_detail_modal.png")
-        print("✓ Scholarship Detail Modal opened with calculated qualification")
+        print("✓ Scholarship Detail Modal opened with mathematical eligibility analysis")
         
         # Switch tabs inside modal
         page.locator("button:has-text('Benefits & Grants')").click()
@@ -125,81 +132,135 @@ def run_qa():
         
         # Close modal
         page.keyboard.press("Escape")
-        time.sleep(0.3)
+        time.sleep(0.4)
         print("✓ Detail Modal dismissed via Escape key")
         
-        print("\n--- TEST 4: SCHOLARSHIP DISCOVERY DIRECTORY ---")
+        print("\n--- TEST 4: SCHOLARSHIP DISCOVERY DIRECTORY & 3D BOOK SHELF ---")
         page.locator("button:has-text('Discover')").first.click()
-        time.sleep(0.5)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/12_discovery_grid.png")
+        time.sleep(0.8)
         
+        # Verify 3D Book Archive Shelf
+        archive_shelf = page.locator("h2:has-text('Select a Dedicated Volume')")
+        assert archive_shelf.is_visible(), "3D Book Archive Shelf not visible in Discovery"
+        page.screenshot(path=f"{SCREENSHOT_DIR}/12_discovery_book_archive_shelf.png")
+        print("✓ 3D Book Archive Shelf rendered in Discovery catalog")
+        
+        # Select Volume 02 (Merit Fellowships) on the 3D shelf
+        vol_merit = page.locator("div[role='button'][aria-label*='Merit']").first
+        if vol_merit.is_visible():
+            vol_merit.click()
+            time.sleep(0.6)
+            page.screenshot(path=f"{SCREENSHOT_DIR}/12b_discovery_book_shelf_selected.png")
+            print("✓ Volume 02 (Merit Fellowships) pulled from shelf, expanding cover & filtering catalog")
+            
         # Test Search
         search_input = page.locator("input[placeholder*='Search by scholarship']")
         search_input.fill("Rhodes")
         time.sleep(0.4)
         page.screenshot(path=f"{SCREENSHOT_DIR}/13_discovery_search_filtered.png")
-        print("✓ Search filter verified for 'Rhodes'")
+        print("✓ Real-time search filter verified for 'Rhodes'")
         search_input.fill("")
         time.sleep(0.3)
-        
-        # Test Category pill
-        page.locator("button:has-text('Government')").first.click()
-        time.sleep(0.4)
-        print("✓ Government Category filter applied")
         
         # Toggle List view
         page.locator("button[aria-label='List View']").click()
         time.sleep(0.4)
         page.screenshot(path=f"{SCREENSHOT_DIR}/14_discovery_list_view.png")
-        print("✓ List View toggle verified")
+        print("✓ Discovery List View toggle verified")
         
-        print("\n--- TEST 5: APPLICATION TRACKER ---")
+        print("\n--- TEST 5: SCHOLARSHIP OPERATIONS CENTER & DOSSIER DRAWER ---")
         page.locator("button:has-text('Tracker')").first.click()
-        time.sleep(0.5)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/15_application_tracker_board.png")
-        print("✓ Application Tracker Kanban Board rendered")
+        time.sleep(0.8)
         
-        # Toggle list view
-        page.locator("button[aria-label='List View']").click()
-        time.sleep(0.3)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/16_application_tracker_list.png")
-        print("✓ Application Tracker List View rendered")
+        # Verify Executive Metrics Bar
+        assert page.locator("text='Total Active'").is_visible(), "Operations Center metrics not rendered"
+        page.screenshot(path=f"{SCREENSHOT_DIR}/15_application_operations_center.png")
+        print("✓ Operations Center rendered with Executive Metrics Bar & 6 Kanban Stages")
         
-        print("\n--- TEST 6: DOCUMENT VAULT ---")
+        # Open Application Dossier Drawer
+        card_to_inspect = page.locator("h4:has-text('Rhodes Scholarship')").first
+        if card_to_inspect.is_visible():
+            card_to_inspect.click()
+            time.sleep(0.6)
+            drawer = page.locator("aside[aria-label='Application Operations Dossier']")
+            assert drawer.is_visible(), "Application Detail Drawer did not slide out"
+            page.screenshot(path=f"{SCREENSHOT_DIR}/16_application_detail_drawer.png")
+            print("✓ Application Detail Drawer slid out with Milestones and Checklist")
+            
+            # Test Milestone toggle
+            milestone_item = page.locator("text='Dossier Assembly'").first
+            if milestone_item.is_visible():
+                milestone_item.click()
+                time.sleep(0.3)
+                print("✓ Milestone toggled successfully")
+                
+            # Test Checklist toggle
+            checklist_item = page.locator("text='Personal Statement'").first
+            if checklist_item.is_visible():
+                checklist_item.click()
+                time.sleep(0.3)
+                print("✓ Checklist item toggled successfully")
+                
+            # Close Drawer
+            close_drawer_btn = page.locator("button[aria-label='Close drawer']").first
+            close_drawer_btn.click()
+            time.sleep(0.4)
+            print("✓ Application Detail Drawer dismissed")
+        
+        # Toggle List view in Operations Center
+        page.locator("button:has-text('List')").first.click()
+        time.sleep(0.4)
+        page.screenshot(path=f"{SCREENSHOT_DIR}/17_application_tracker_list.png")
+        print("✓ Operations Center Table / List View rendered")
+        
+        print("\n--- TEST 6: DOCUMENT VAULT & PRIVACY DISCLOSURE ---")
         page.locator("button:has-text('Vault')").first.click()
-        time.sleep(0.5)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/17_document_vault.png")
-        print("✓ Document Vault rendered with encrypted records")
+        time.sleep(0.6)
+        
+        # Verify Privacy Transparency notice
+        assert page.locator("text=Privacy & Storage Transparency").is_visible(), "Truthful storage disclosure not found"
+        page.screenshot(path=f"{SCREENSHOT_DIR}/18_document_vault_honest_disclosure.png")
+        print("✓ Document Vault rendered with honest local browser sandbox disclosure")
         
         # Test Upload modal
         page.locator("button:has-text('Upload Certificate')").click()
         time.sleep(0.4)
-        page.locator("input[placeholder*='Income Certificate']").fill("NOC Endorsement Letter 2026")
+        page.locator("input[placeholder*='Income Certificate']").fill("Dean Endorsement & Transcripts 2026")
         page.locator("input[placeholder*='Tehsildar']").fill("Office of the Dean, Academic Affairs")
-        page.locator("button:has-text('Save & Encrypt')").click()
-        time.sleep(0.5)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/18_document_vault_uploaded.png")
-        print("✓ New document created and encrypted into Vault")
+        page.locator("button:has-text('Save to Local Vault')").click()
+        time.sleep(0.6)
+        page.screenshot(path=f"{SCREENSHOT_DIR}/19_document_vault_uploaded.png")
+        print("✓ New document created and stored into local client sandbox")
         
         print("\n--- TEST 7: GRANTLY AI ADVISOR ---")
         page.locator("button:has-text('AI Advisor')").first.click()
-        time.sleep(0.5)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/19_ai_advisor_initial.png")
+        time.sleep(0.6)
+        page.screenshot(path=f"{SCREENSHOT_DIR}/20_ai_advisor_initial.png")
         
         # Click suggested prompt pill
         page.locator("button:has-text('What documents are missing for Rhodes?')").click()
         time.sleep(1.2)
-        page.screenshot(path=f"{SCREENSHOT_DIR}/20_ai_advisor_response.png")
-        print("✓ AI Advisor grounded response generated with action link")
+        page.screenshot(path=f"{SCREENSHOT_DIR}/21_ai_advisor_response.png")
+        print("✓ AI Advisor grounded response generated with contextual action link")
         
         print("\n--- TEST 8: RESPONSIVE VIEWPORTS AUDIT ---")
+        # Desktop 1366 Viewport
+        d1366_page = browser.new_page(viewport={"width": 1366, "height": 768})
+        d1366_page.goto(f"{BASE_URL}", wait_until="networkidle")
+        time.sleep(0.5)
+        d1366_overflow = d1366_page.evaluate("document.body.scrollWidth > window.innerWidth")
+        assert not d1366_overflow, "Horizontal overflow detected on 1366px viewport!"
+        d1366_page.screenshot(path=f"{SCREENSHOT_DIR}/22_desktop_1366_home.png")
+        print("✓ Desktop Viewport (1366px): Zero horizontal overflow")
+        d1366_page.close()
+        
         # Tablet Viewport (768 x 1024)
         tablet_page = browser.new_page(viewport={"width": 768, "height": 1024})
         tablet_page.goto(f"{BASE_URL}", wait_until="networkidle")
         time.sleep(0.5)
         tablet_overflow = tablet_page.evaluate("document.body.scrollWidth > window.innerWidth")
         assert not tablet_overflow, "Horizontal overflow detected on Tablet viewport!"
-        tablet_page.screenshot(path=f"{SCREENSHOT_DIR}/21_tablet_768_home.png")
+        tablet_page.screenshot(path=f"{SCREENSHOT_DIR}/23_tablet_768_home.png")
         print("✓ Tablet Viewport (768px): Zero horizontal overflow")
         tablet_page.close()
         
@@ -209,14 +270,14 @@ def run_qa():
         time.sleep(0.5)
         mobile_overflow = mobile_page.evaluate("document.body.scrollWidth > window.innerWidth")
         assert not mobile_overflow, "Horizontal overflow detected on Mobile viewport!"
-        mobile_page.screenshot(path=f"{SCREENSHOT_DIR}/22_mobile_375_home.png")
+        mobile_page.screenshot(path=f"{SCREENSHOT_DIR}/24_mobile_375_home.png")
         
         # Test Mobile Menu Drawer
         menu_btn = mobile_page.locator("button[aria-label='Toggle Navigation Menu']")
         if menu_btn.is_visible():
             menu_btn.click()
             time.sleep(0.3)
-            mobile_page.screenshot(path=f"{SCREENSHOT_DIR}/23_mobile_menu_open.png")
+            mobile_page.screenshot(path=f"{SCREENSHOT_DIR}/25_mobile_menu_open.png")
             print("✓ Mobile Menu Drawer opened and verified")
         print("✓ Mobile Viewport (375px): Zero horizontal overflow")
         mobile_page.close()

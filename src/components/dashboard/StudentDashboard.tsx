@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStore } from '../../services/scholarshipStore'
 import { ScholarshipCard } from '../scholarships/ScholarshipCard'
+import { DashboardOpportunityRibbon } from './DashboardOpportunityRibbon'
 import {
   Sparkles,
   Calendar,
@@ -99,6 +100,9 @@ export function StudentDashboard() {
             </button>
           </div>
         )}
+
+        {/* 3D Opportunity Ribbon: Interactive WebGL / Spline Showcase */}
+        <DashboardOpportunityRibbon />
 
         {/* Main Content Grid: Top Matches (Left 8 cols) & Applications Overview (Right 4 cols) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -237,16 +241,16 @@ export function StudentDashboard() {
 
               <div className="space-y-2 text-xs text-slate-600">
                 <div className="flex items-center justify-between py-1 border-b border-slate-100">
-                  <span>Encrypted Dossiers</span>
+                  <span>Active Vault Dossiers</span>
                   <span className="font-mono font-bold text-slate-900">{documents.length} Files</span>
                 </div>
                 <div className="flex items-center justify-between py-1 border-b border-slate-100">
                   <span>Verification Status</span>
-                  <span className="text-emerald-700 font-semibold font-mono">100% Certified</span>
+                  <span className="text-emerald-700 font-semibold font-mono">Self-Attested & Certified</span>
                 </div>
                 <div className="flex items-center justify-between py-1">
-                  <span>Storage Encryption</span>
-                  <span className="font-mono text-slate-500">AES-256</span>
+                  <span>Storage Privacy</span>
+                  <span className="font-mono text-slate-500">Local Sandbox</span>
                 </div>
               </div>
             </div>

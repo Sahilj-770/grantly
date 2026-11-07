@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { useStore } from '../../services/scholarshipStore'
 import { ScholarshipCard } from './ScholarshipCard'
+import { BookArchiveShelf } from './BookArchiveShelf'
 import { ScholarshipCategory } from '../../types/scholarship'
 import {
   Search,
@@ -181,6 +182,9 @@ export function ScholarshipDiscovery() {
             </div>
           </div>
         </div>
+
+        {/* 3D Interactive Archive Shelf: Select a Dedicated Volume */}
+        <BookArchiveShelf />
 
         {/* Search Bar & Primary Filter Controls */}
         <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#CBD5E1] shadow-xs space-y-4">

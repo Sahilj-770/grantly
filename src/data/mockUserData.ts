@@ -9,16 +9,34 @@ export const INITIAL_APPLICATIONS: Application[] = [
     provider: 'Sir Ratan Tata Trust',
     amountFormatted: '₹1,50,000 / year',
     deadline: '2026-12-15',
+    daysRemaining: 38,
+    urgency: 'upcoming',
+    isVerifiedDeadline: true,
     status: 'under_review',
     progressPercentage: 80,
-    notes: 'Income certificate and college fee breakdown submitted on Nov 02. Awaiting stage 2 verification committee review.',
-    nextStep: 'Verification officer phone audit or direct college notification scheduled for Nov 28.',
+    notes: 'Income revenue certificate and college institutional fee breakdown uploaded on Nov 02. Nodal audit officer assigned.',
+    nextStep: 'Awaiting stage 2 verification officer call or direct institutional fee credit notice.',
     submittedDate: '2026-11-02',
     lastUpdated: '2026-11-05',
     history: [
-      { id: 'h-1', date: '2026-10-25', title: 'Application Drafted', description: 'Created draft and filled candidate financial profile.' },
-      { id: 'h-2', date: '2026-11-02', title: 'Dossier Submitted', description: 'Uploaded certified Tehsildar income declaration and institution demand letter.' },
-      { id: 'h-3', date: '2026-11-05', title: 'Under Review', description: 'Assigned to regional verification officer.' }
+      { id: 'h-1', date: '2026-10-25', title: 'Application Drafted', description: 'Initiated dossier and confirmed annual family income eligibility.' },
+      { id: 'h-2', date: '2026-11-02', title: 'Dossier Submitted', description: 'Transmitted certified Tahsildar declaration and bonafide credentials.' },
+      { id: 'h-3', date: '2026-11-05', title: 'Under Review', description: 'Assigned to regional verification officer for economic means audit.' }
+    ],
+    milestones: [
+      { id: 'm1', title: 'Opportunity Saved', description: 'Added to tracking roster', completed: true, completedAt: '2026-10-25' },
+      { id: 'm2', title: 'Eligibility Reviewed', description: 'Income and CGPA verified', completed: true, completedAt: '2026-10-28' },
+      { id: 'm3', title: 'Documents Prepared', description: 'Transcripts & Tahsildar certificate attached', completed: true, completedAt: '2026-11-01' },
+      { id: 'm4', title: 'Application Completed', description: 'Institutional fee demand letter verified', completed: true, completedAt: '2026-11-02' },
+      { id: 'm5', title: 'Application Submitted', description: 'Official submission acknowledged', completed: true, completedAt: '2026-11-02' },
+      { id: 'm6', title: 'Under Review', description: 'Regional nodal officer scrutiny', completed: true, completedAt: '2026-11-05' },
+      { id: 'm7', title: 'Decision Received', description: 'Disbursement grant sanction letter', completed: false }
+    ],
+    checklist: [
+      { id: 'c1', label: 'Tahsildar Income Certificate', completed: true },
+      { id: 'c2', label: 'College Fee Structure Breakdown', completed: true },
+      { id: 'c3', label: 'Previous Semester Consolidated Marksheet', completed: true },
+      { id: 'c4', label: 'Student Bank Account Passbook Copy', completed: true }
     ],
     attachedDocumentIds: ['doc-inc-01', 'doc-acad-01', 'doc-id-01']
   },
@@ -29,14 +47,32 @@ export const INITIAL_APPLICATIONS: Application[] = [
     provider: 'The Rhodes Trust',
     amountFormatted: '£65,000 / year (Full Fees + Stipend)',
     deadline: '2026-10-02',
+    daysRemaining: 44,
+    urgency: 'upcoming',
+    isVerifiedDeadline: true,
     status: 'preparing',
     progressPercentage: 45,
-    notes: 'Drafted 1st iteration of personal statement. Dr. Mukherjee agreed to provide principal academic letter of reference.',
-    nextStep: 'Secure remaining 3 referee email confirmations and finalize study proposal.',
+    notes: 'Drafted 1st iteration of personal statement. Prof. Mukherjee confirmed academic recommendation.',
+    nextStep: 'Confirm remaining 3 referee submissions and polish 750-word study proposal.',
     lastUpdated: '2026-11-04',
     history: [
-      { id: 'h-r1', date: '2026-10-28', title: 'Profile Initiated', description: 'Registered on Rhodes Trust constituency portal.' },
-      { id: 'h-r2', date: '2026-11-04', title: 'Statement Drafted', description: 'Completed first 850 words on computer science and ethics in developing nations.' }
+      { id: 'h-r1', date: '2026-10-28', title: 'Profile Initiated', description: 'Registered constituency eligibility on Rhodes Trust portal.' },
+      { id: 'h-r2', date: '2026-11-04', title: 'Personal Statement Drafted', description: 'Completed first 850 words on technological equity.' }
+    ],
+    milestones: [
+      { id: 'm1', title: 'Opportunity Saved', description: 'Added to tracking roster', completed: true, completedAt: '2026-10-28' },
+      { id: 'm2', title: 'Eligibility Reviewed', description: '8.85 CGPA clears 8.5 threshold', completed: true, completedAt: '2026-10-29' },
+      { id: 'm3', title: 'Documents Prepared', description: 'Academic transcripts assembled', completed: true, completedAt: '2026-11-04' },
+      { id: 'm4', title: 'Application Completed', description: 'Dossier ready for submission', completed: false },
+      { id: 'm5', title: 'Application Submitted', description: 'Constituency deadline', completed: false },
+      { id: 'm6', title: 'Under Review', description: 'Preliminary interview round', completed: false },
+      { id: 'm7', title: 'Decision Received', description: 'National Selection final round', completed: false }
+    ],
+    checklist: [
+      { id: 'c1', label: 'Personal Statement (1,000 words)', completed: true },
+      { id: 'c2', label: 'Academic Study Proposal (750 words)', completed: false },
+      { id: 'c3', label: '6 Letters of Recommendation (2 confirmed)', completed: false },
+      { id: 'c4', label: 'Official College Transcripts with GPA scale', completed: true }
     ],
     attachedDocumentIds: ['doc-acad-01', 'doc-id-01', 'doc-lor-01']
   },
@@ -45,16 +81,34 @@ export const INITIAL_APPLICATIONS: Application[] = [
     scholarshipId: 'sch-google-apac-2026',
     scholarshipTitle: 'Generation Google Scholarship (APAC)',
     provider: 'Google',
-    amountFormatted: '$2,500 USD',
+    amountFormatted: '$2,500 USD (Direct Academic Grant)',
     deadline: '2026-12-10',
+    daysRemaining: 33,
+    urgency: 'upcoming',
+    isVerifiedDeadline: true,
     status: 'ready',
     progressPercentage: 90,
-    notes: 'Essays proofread and resume updated with latest open-source contribution metrics. Ready for final click submission.',
-    nextStep: 'Final review and click submit before deadline window closes.',
+    notes: 'Essays proofread and resume updated with latest open-source research. Ready for single-click transmission.',
+    nextStep: 'Final review of submitted links before deadline window closure.',
     lastUpdated: '2026-11-06',
     history: [
-      { id: 'h-g1', date: '2026-10-30', title: 'Application Started', description: 'Filled basic academic transcript and college credentials.' },
-      { id: 'h-g2', date: '2026-11-06', title: 'Essays Finalized', description: 'Completed both technical diversity essays and verified formatting.' }
+      { id: 'h-g1', date: '2026-10-30', title: 'Application Started', description: 'Filled academic transcript and college credentials.' },
+      { id: 'h-g2', date: '2026-11-06', title: 'Essays Finalized', description: 'Completed diversity and technical impact essays.' }
+    ],
+    milestones: [
+      { id: 'm1', title: 'Opportunity Saved', description: 'Added to tracking roster', completed: true, completedAt: '2026-10-30' },
+      { id: 'm2', title: 'Eligibility Reviewed', description: 'Undergraduate CS enrollment verified', completed: true, completedAt: '2026-10-31' },
+      { id: 'm3', title: 'Documents Prepared', description: 'Technical resume & transcripts attached', completed: true, completedAt: '2026-11-04' },
+      { id: 'm4', title: 'Application Completed', description: 'All essays reviewed', completed: true, completedAt: '2026-11-06' },
+      { id: 'm5', title: 'Application Submitted', description: 'Official portal submission', completed: false },
+      { id: 'm6', title: 'Under Review', description: 'Online coding challenge evaluation', completed: false },
+      { id: 'm7', title: 'Decision Received', description: 'Scholars retreat selection', completed: false }
+    ],
+    checklist: [
+      { id: 'c1', label: 'Technical Resume with GitHub links', completed: true },
+      { id: 'c2', label: 'Diversity in Tech Essay (400 words)', completed: true },
+      { id: 'c3', label: 'Algorithmic Problem-Solving Essay', completed: true },
+      { id: 'c4', label: 'Official College Transcript', completed: true }
     ],
     attachedDocumentIds: ['doc-acad-01', 'doc-res-01']
   },
@@ -65,13 +119,30 @@ export const INITIAL_APPLICATIONS: Application[] = [
     provider: 'Reliance Foundation',
     amountFormatted: '₹2,00,000 grant',
     deadline: '2026-12-20',
+    daysRemaining: 43,
+    urgency: 'upcoming',
+    isVerifiedDeadline: true,
     status: 'interested',
     progressPercentage: 15,
-    notes: 'Bookmarked for aptitude test preparation. Need to review syllabus for 60-minute online assessment.',
-    nextStep: 'Schedule online aptitude test practice session.',
+    notes: 'Saved to prepare for the 60-minute online aptitude assessment test.',
+    nextStep: 'Schedule online aptitude test preparation session and review quantitative reasoning syllabus.',
     lastUpdated: '2026-11-01',
     history: [
-      { id: 'h-rel1', date: '2026-11-01', title: 'Saved to Applications', description: 'Identified as high-probability need-cum-merit match.' }
+      { id: 'h-rel1', date: '2026-11-01', title: 'Saved to Applications', description: 'Identified as high-yield merit-cum-means scholarship.' }
+    ],
+    milestones: [
+      { id: 'm1', title: 'Opportunity Saved', description: 'Added to tracking roster', completed: true, completedAt: '2026-11-01' },
+      { id: 'm2', title: 'Eligibility Reviewed', description: 'Confirmed Class 12 score > 60%', completed: false },
+      { id: 'm3', title: 'Documents Prepared', description: 'College admission slip and fee proof', completed: false },
+      { id: 'm4', title: 'Application Completed', description: 'Aptitude test preparation', completed: false },
+      { id: 'm5', title: 'Application Submitted', description: 'Test completed online', completed: false },
+      { id: 'm6', title: 'Under Review', description: 'Merit list compilation', completed: false },
+      { id: 'm7', title: 'Decision Received', description: 'Sanction letter announcement', completed: false }
+    ],
+    checklist: [
+      { id: 'c1', label: 'Class 12 Board Marksheet', completed: true },
+      { id: 'c2', label: 'College Bonafide Admission Letter', completed: false },
+      { id: 'c3', label: 'Aptitude Practice Mock Test', completed: false }
     ],
     attachedDocumentIds: []
   }
